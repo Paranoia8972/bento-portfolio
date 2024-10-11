@@ -91,7 +91,7 @@ export default function Home() {
             <div>
               <h3 className="text-lg font-medium">Mastering React Hooks</h3>
               <p className="text-sm text-muted-foreground mb-2">
-                A deep dive into React's useState and useEffect hooks.
+                A deep dive into React&apos;s useState and useEffect hooks.
               </p>
               <Button variant="link" className="p-0">
                 Read More <ExternalLinkIcon className="ml-1 h-4 w-4" />
@@ -158,9 +158,9 @@ export default function Home() {
 
         {/* Contact Card */}
         <Card className="col-span-3 md:col-span-1 p-6 order-6 md:order-none">
-          <h2 className="text-2xl font-semibold mb-4">Let's Connect!</h2>
+          <h2 className="text-2xl font-semibold mb-4">Let&apos;s Connect!</h2>
           <p className="text-muted-foreground mb-4">
-            I'm always open to new opportunities and collaborations.
+            I&apos;m always open to new opportunities and collaborations.
           </p>
           <Button className="w-full">
             <FileTextIcon className="mr-2 h-4 w-4" /> Download CV
