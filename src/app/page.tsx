@@ -10,7 +10,7 @@ import {
   ExternalLinkIcon,
 } from "lucide-react";
 import { GitHubCommitStreak } from "@/components/github-calendar";
-import InfiniteSkillMarquee from "@/components/skill-marquee";
+import SkillMarquee from "@/components/skill-marquee";
 
 export default function Home() {
   return (
@@ -81,7 +81,7 @@ export default function Home() {
 
         {/* Skills Card */}
         <Card className="p-6 col-span-3 order-1 md:order-none">
-          <InfiniteSkillMarquee />
+          <SkillMarquee />
         </Card>
 
         {/* Recent Blog Posts Card */}

@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   SiNextdotjs,
   SiTypescript,
@@ -12,10 +11,17 @@ import {
   SiNodedotjs,
   SiPython,
   SiDocker,
+  SiGo,
+  SiArchlinux,
+  SiRaspberrypi,
+  SiGnubash,
+  SiVercel,
+  SiMongodb,
 } from "react-icons/si";
-import { Badge } from "@/components/ui/badge";
+import { IconType } from "react-icons";
+import { Button } from "@/components/ui/button";
 
-const skills = [
+const skills: { icon: IconType; label: string }[] = [
   { icon: SiNextdotjs, label: "Next.js" },
   { icon: SiTypescript, label: "TypeScript" },
   { icon: SiFigma, label: "Figma" },
@@ -26,17 +32,26 @@ const skills = [
   { icon: SiNodedotjs, label: "Node.js" },
   { icon: SiPython, label: "Python" },
   { icon: SiDocker, label: "Docker" },
+  { icon: SiGo, label: "Go" },
+  { icon: SiArchlinux, label: "Arch Linux" },
+  { icon: SiRaspberrypi, label: "Raspberry Pi" },
+  { icon: SiGnubash, label: "Bash" },
+  { icon: SiVercel, label: "Vercel" },
+  { icon: SiMongodb, label: "MongoDB" },
 ];
 
-export default function InfiniteSkillMarquee() {
+const skillsRow1 = skills.slice(0, Math.ceil(skills.length / 2));
+const skillsRow2 = skills.slice(Math.ceil(skills.length / 2));
+
+export default function SkillMarquee() {
   return (
-    <div className="w-full overflow-hidden py-1 relative">
+    <div className="w-full overflow-hidden relative">
       <div className="flex flex-col gap-8">
-        <MarqueeRow skills={skills} direction="left" />
-        <MarqueeRow skills={skills} direction="right" />
+        <MarqueeRow skills={skillsRow1} direction="left" />
+        <MarqueeRow skills={skillsRow2} direction="right" />
       </div>
-      <div className="absolute top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-[#0a0a0a] to-transparent pointer-events-none"></div>
-      <div className="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-[#0a0a0a] to-transparent pointer-events-none"></div>
+      <div className="absolute top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-background to-transparent pointer-events-none"></div>
+      <div className="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
     </div>
   );
 }
@@ -45,40 +60,40 @@ function MarqueeRow({
   skills,
   direction,
 }: {
-  skills: typeof skills;
+  skills: { icon: IconType; label: string }[];
   direction: "left" | "right";
 }) {
-  const [duration, setDuration] = useState(30);
   const rowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (rowRef.current) {
       const { width } = rowRef.current.getBoundingClientRect();
-      setDuration(width / 50);
+      const duration = width / 50;
+      rowRef.current.style.setProperty("--duration", `${duration}s`);
     }
   }, []);
 
   return (
-    <div className="flex overflow-hidden">
+    <div className="flex overflow-hidden group">
       <div
         ref={rowRef}
-        className="flex items-center gap-6 animate-infinite-scroll"
-        style={{
-          animationDuration: `${duration}s`,
-          animationDirection: direction === "right" ? "reverse" : "normal",
-        }}
+        className={`flex items-center gap-4 hover:paused ${
+          direction === "right" ? "animate-marquee-reverse" : "animate-marquee"
+        } group-hover:pause-animation`}
       >
         {[...skills, ...skills, ...skills].map((skill, index) => (
-          <Badge
+          <Button
             key={index}
-            className="flex items-center gap-2 flex-shrink-0"
             variant="outline"
+            className="flex items-center gap-2 hover:bg-white/5"
           >
-            <skill.icon className="size-8 px-1 text-gray-100" />
+            {React.createElement(skill.icon, {
+              className: "size-8 px-1 text-gray-100",
+            })}
             <span className="text-sm font-medium text-white">
               {skill.label}
             </span>
-          </Badge>
+          </Button>
         ))}
       </div>
     </div>
